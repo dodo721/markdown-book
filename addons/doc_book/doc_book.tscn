@@ -1,0 +1,148 @@
+[gd_scene load_steps=20 format=3 uid="uid://b2v3ob8hjjvcd"]
+
+[ext_resource type="Theme" uid="uid://cu1oqe1qcqr1h" path="res://addons/doc_book/doc_book.tres" id="1_1h2oa"]
+[ext_resource type="Texture2D" uid="uid://bvub6yxwdaeep" path="res://addons/doc_book/Reload.svg" id="2_vxve1"]
+[ext_resource type="Script" uid="uid://wde6mhceltfp" path="res://addons/doc_book/doc_book_interface.gd" id="3_svvwl"]
+[ext_resource type="Script" uid="uid://drepg3gmrmkax" path="res://addons/doc_book/doc_book_tree.gd" id="4_8y8by"]
+[ext_resource type="Script" uid="uid://del3k25e6n3ss" path="res://addons/doc_book/doc_book_page_viewer.gd" id="5_5j1e7"]
+[ext_resource type="Script" uid="uid://6kcoy2fu0oqk" path="res://addons/markdownlabel/markdownlabel.gd" id="6_v1jm8"]
+[ext_resource type="Script" uid="uid://dv7w2uy15pjuj" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="7_f3pfx"]
+[ext_resource type="Script" uid="uid://7yviujxila1w" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="8_3t2yh"]
+[ext_resource type="Script" uid="uid://d1yarinsfglyj" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="9_oyy2c"]
+[ext_resource type="Script" uid="uid://dflsjmdcggbox" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="10_x5kvj"]
+[ext_resource type="Script" uid="uid://clm7pg63i4sns" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="11_h1kro"]
+[ext_resource type="Script" uid="uid://qojoer51dg2x" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="12_dq0o7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hf31v"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[sub_resource type="Resource" id="Resource_wh0uk"]
+resource_local_to_scene = true
+script = ExtResource("7_f3pfx")
+font_size = 2.285
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_ycx47"]
+resource_local_to_scene = true
+script = ExtResource("8_3t2yh")
+font_size = 1.714
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_a4htl"]
+resource_local_to_scene = true
+script = ExtResource("9_oyy2c")
+font_size = 1.428
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_83qmf"]
+resource_local_to_scene = true
+script = ExtResource("10_x5kvj")
+font_size = 1.142
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_hlhv6"]
+resource_local_to_scene = true
+script = ExtResource("11_h1kro")
+font_size = 1.0
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_tivdd"]
+resource_local_to_scene = true
+script = ExtResource("12_dq0o7")
+font_size = 0.857
+is_bold = false
+is_italic = false
+is_underlined = false
+override_font_color = false
+font_color = Color(1, 1, 1, 1)
+
+[node name="DocBook" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_1h2oa")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hf31v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Toolbar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ReloadBtn" type="Button" parent="VBoxContainer/Toolbar"]
+layout_mode = 2
+text = "Reload"
+icon = ExtResource("2_vxve1")
+
+[node name="MainInterface" type="HSplitContainer" parent="VBoxContainer" node_paths=PackedStringArray("tree", "page_viewer")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("3_svvwl")
+tree = NodePath("PageTree")
+page_viewer = NodePath("PageViewer")
+
+[node name="PageTree" type="Tree" parent="VBoxContainer/MainInterface"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+hide_root = true
+script = ExtResource("4_8y8by")
+
+[node name="PageViewer" type="HBoxContainer" parent="VBoxContainer/MainInterface"]
+layout_mode = 2
+script = ExtResource("5_5j1e7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MainInterface/PageViewer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+
+[node name="MarkdownLabel" type="RichTextLabel" parent="VBoxContainer/MainInterface/PageViewer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+script = ExtResource("6_v1jm8")
+h1 = SubResource("Resource_wh0uk")
+h2 = SubResource("Resource_ycx47")
+h3 = SubResource("Resource_a4htl")
+h4 = SubResource("Resource_83qmf")
+h5 = SubResource("Resource_hlhv6")
+h6 = SubResource("Resource_tivdd")
+metadata/_custom_type_script = ExtResource("6_v1jm8")
+
+[connection signal="pressed" from="VBoxContainer/Toolbar/ReloadBtn" to="VBoxContainer/MainInterface" method="_on_reload_btn_pressed"]
+[connection signal="item_selected" from="VBoxContainer/MainInterface/PageTree" to="VBoxContainer/MainInterface" method="_on_item_selected"]

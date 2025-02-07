@@ -10,17 +10,17 @@ config_version=5
 
 [addons]
 
-markdown_book/docs_folder="res://docs"
+doc_book/docs_folder="res://docs"
 
 [application]
 
-config/name="Markdown Book"
-config/features=PackedStringArray("4.2", "Mobile")
+config/name="Doc Book"
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/markdown_book/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+enabled=PackedStringArray("res://addons/doc_book/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
 
 [rendering]
 
